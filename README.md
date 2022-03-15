@@ -39,19 +39,31 @@ docker exec -it cantcontainmyself bash
 # and you can open a web browser as localhost with the indicated port and see the app
 
 '''
+docker pull <image_name> # pulls the image withour running it
 docker run -t -d -p 80:80 --name nccoffee thenetworkchuck/nccoffee:frenchpress
+docker run <image_name> sleep 10 # run the image and sleep for 10 seconds
+docker run <image_name>:<tag> # tag is where the version of the image or app is specified
+docker attach <container_name> # attach to the container, but it doesn't mean the CLI is attached too
+
 '''
 
 # to see usage stats for running containers
 
 '''
-docker stats
+docker stats # info about running containers
+docker ps # lists running containers
+docker ps -a # lists all containers, including stopped ones
+docker stop <container_id or name> # stops a container
+docker rm <container_id or name> # removes a container permanently
+
 '''
 
-# delete image
+# delete or list image or container
 
 '''
-docker rm -f cantcontainmyself
+docker image rm -f cantcontainmyself
+docker container rm CONTAINER
+docker rmi <image_name> # removes an image permanently
 '''
 
 # linux commands in docker
