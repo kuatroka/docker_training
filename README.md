@@ -40,7 +40,7 @@ docker exec -it cantcontainmyself bash
 
 '''
 docker pull <image_name> # pulls the image withour running it
-docker run -t -d -p 80:80 --name nccoffee thenetworkchuck/nccoffee:frenchpress
+docker run -t -d -p 80:80 --name nccoffee thenetworkchuck/nccoffee:frenchpress # first port is host, second is container
 docker run <image_name> sleep 10 # run the image and sleep for 10 seconds
 docker run <image_name>:<tag> # tag is where the version of the image or app is specified
 docker attach <container_name> # attach to the container, but it doesn't mean the CLI is attached too
@@ -55,15 +55,17 @@ docker ps # lists running containers
 docker ps -a # lists all containers, including stopped ones
 docker stop <container_id or name> # stops a container
 docker rm <container_id or name> # removes a container permanently
+docker rm -f $(docker ps -a -q) # removes all containers, running or not
 
 '''
 
 # delete or list image or container
 
 '''
-docker image rm -f cantcontainmyself
-docker container rm CONTAINER
+
+docker rm <container_name> # removes a container permanently
 docker rmi <image_name> # removes an image permanently
+docker rmi -f <image_name> # forcefully removes an image permanently
 '''
 
 # linux commands in docker
@@ -86,3 +88,20 @@ less filename.txt # read the contents of a file in less mode
 tail filename.txt # read the contents of a file in tail mode. Can add -n 3 to see the last 3 lines
 head filename.txt # read the contents of a file in head mode. Can add -n 3 to see the first 3 lines
 '''
+
+# tiny dockerised app
+
+# 1 create a directory "hello-docker" and in it a file called "app.py" with one line
+
+'''console.log("Hello Docker");'''
+
+# 2 create a file called Dockerfile with the following contents:
+
+'''
+FROM node:alpine
+COPY . /app
+WORKDIR /app
+CMD node app.js
+'''
+
+# 3 run a command in CLI "docker build -t hello-docker ."
