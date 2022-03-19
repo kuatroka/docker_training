@@ -51,6 +51,8 @@ docker attach <container_name> # attach to the container, but it doesn't mean th
 
 '''
 docker stats # info about running containers
+docker inspect <container_name> # in-depth info about the container
+
 docker ps # lists running containers
 docker ps -a # lists all containers, including stopped ones
 docker stop <container_id or name> # stops a container
@@ -66,7 +68,19 @@ docker rm -f $(docker ps -a -q) # removes all containers, running or not
 docker rm <container_name> # removes a container permanently
 docker rmi <image_name> # removes an image permanently
 docker rmi -f <image_name> # forcefully removes an image permanently
+docker history <image_name> # shows the history of steps to create the image was created with
 '''
+
+# map local volume to container's volume
+
+'''
+docker run -v C:/Users/yo_fanpc/Documents/dev/docker_training/test_data_folder:/var/lib/mysql  
+-p 3306:3306 -e MYSQL_ROOT_PASSWORD=qwerty -d mysql
+'''
+
+# "-v C:/Users/yo_fanpc/Documents/dev/docker_training/test_data_folder:/var/lib/mysql" maps volumes.
+
+# 1st is local host and after the colon is the container's path
 
 # linux commands in docker
 
@@ -88,6 +102,52 @@ less filename.txt # read the contents of a file in less mode
 tail filename.txt # read the contents of a file in tail mode. Can add -n 3 to see the last 3 lines
 head filename.txt # read the contents of a file in head mode. Can add -n 3 to see the first 3 lines
 '''
+
+# CMD and ENTRYPOINT
+
+'''
+CMD ["command", "arguments"] # run the command with the arguments (CMD ["sleep", "10"])
+CMD ["command"] # run the command with no arguments (CMD ["bash"])
+ENTRYPOINT ["command", "arguments"] # run the command with the arguments (ENTRYPOINT ["sleep", "10"])
+'''
+
+### we can use both if we want to have a defalut argument and change it when running the container
+
+'''
+ENTRYPOINT ["sleep"]
+CMD ["10"]
+'''
+
+# Docker Networking
+
+'''
+docker network ls # list all the networks
+'''
+
+# Volumes
+
+'''
+docker volume create <volume_name> # create a volume inside docker internal installation files
+docker run -v <volume_name>:/var/lib/mysql mysql # maps previously created volume to the container
+'''
+
+# even if the volume creation command was not ran, the volume will be created automatically when docker run # command with volume mapping is invoked. This is volume mounting
+
+# We can also mound or bind any other folder to the container - volume binding
+
+# the more recent syntaxis is to use --mount
+
+'''
+docker run \
+--mount type=bind, source=/data/mysql,target=var/lib/mysql
+'''
+
+##### docker-compose
+
+'''
+docker-compose up # start all the containers
+docker-compose -f <docker-compose-file.yml> up # start specified yml file, not the default one
+docker-compose down # stop all the containers
 
 # tiny dockerised app
 

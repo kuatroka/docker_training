@@ -1,0 +1,29 @@
+version: '2'
+services:
+
+  redis:
+    image: redis
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+
+  vote:
+    image: dockersamples/vote
+    ports:
+      - 5002:80
+
+  result:
+    image: dockersamples/result
+    ports:
+      - 5003:80
+    links:
+      - db
+      
+
+  worker:
+    image: dockersamples/worker
+    links:
+      - db
+      - redis
