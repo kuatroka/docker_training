@@ -68,6 +68,7 @@ docker rm -f $(docker ps -a -q) # removes all containers, running or not
 docker rm <container_name> # removes a container permanently
 docker rmi <image_name> # removes an image permanently
 docker rmi -f <image_name> # forcefully removes an image permanently
+docker rmi -f $(docker images -a -q) # removes all images
 docker history <image_name> # shows the history of steps to create the image was created with
 '''
 
