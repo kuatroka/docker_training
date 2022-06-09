@@ -102,6 +102,8 @@ more filename.txt # read the contents of a file in more mode
 less filename.txt # read the contents of a file in less mode
 tail filename.txt # read the contents of a file in tail mode. Can add -n 3 to see the last 3 lines
 head filename.txt # read the contents of a file in head mode. Can add -n 3 to see the first 3 lines
+
+hostname -I # command to check ip address in linux
 '''
 
 # CMD and ENTRYPOINT
